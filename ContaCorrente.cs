@@ -11,12 +11,23 @@ namespace ByteBank
         public Cliente titular;
         public string agencia;
         public string numero;
-        public double saldo;
+        private double saldo;
 
         public ContaCorrente()
         {
             this.saldo = 0;
             this.titular = new Cliente();
+        }
+
+        public ContaCorrente SetSaldo(double valor)
+        {
+            this.Depositar(valor);
+            return this;
+        }
+
+        public double GetSaldo()
+        {
+            return this.saldo;
         }
 
         public bool Sacar(double valor)
@@ -31,7 +42,8 @@ namespace ByteBank
 
         public void Depositar(double valor)
         {
-            this.saldo += valor;
+            if (valor > 0)
+                this.saldo += valor;
         }
 
         public bool Transferir(double valor, ContaCorrente contaDestino)
