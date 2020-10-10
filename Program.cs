@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ByteBank.Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,50 +11,13 @@ namespace ByteBank
     {
         static void Main(string[] args)
         {
-            ContaCorrente conta = new ContaCorrente("9260-0", "37048-2");
-            conta.Saldo = 100.00;
-            conta.Titular.Nome = "Silas Stoffel";
 
-            Console.WriteLine("Saldo: " + conta.Saldo);
-            double valorSaque = 50.00;
-            Console.WriteLine("Sacando: R$ " + valorSaque);
-            conta.Sacar(valorSaque);
-            Console.WriteLine("Saldo Atualizado: R$ " + conta.Saldo);
-           
-            double valorDeposito = 250.00;
-            Console.WriteLine("Depositando: R$ " + valorDeposito);
-            conta.Depositar(valorDeposito);
-            Console.WriteLine("Saldo Atualizado: R$ " + conta.Saldo);
+            var silas = new Funcionario();
+            silas.Nome = "Silas Stoffel";
+            silas.Cpf = "00011122233";
+            silas.Salario = 4000.00;
 
-            valorSaque = 450.00;
-            Console.WriteLine("Tentando sacar: R$ " + valorSaque);
-            bool sacou = conta.Sacar(valorSaque);
-            if (!sacou)
-                Console.WriteLine("Saldo insuficiente");
-
-            Console.WriteLine("Saldo Atualizado: R$ " + conta.Saldo);
-
-
-            // Transferir
-            var contaDestino = new ContaCorrente("0666-6", "0666");
-            contaDestino.Titular.Nome = "Bruce Wayne (O Batmam)";
-
-            // Conta do Silas transfere para o Bruce Wayne
-            double valorTransferencia = 120.00; 
-            Console.WriteLine("Transferindo R$ " + valorTransferencia + " para " + contaDestino.Titular.Nome);
-            Console.WriteLine("Saldo da conta do " + contaDestino.Titular.Nome + " R$ " + contaDestino.Saldo);
-            conta.Transferir(valorTransferencia, contaDestino);
-            Console.WriteLine("Saldo atualizado da conta do " + contaDestino.Titular.Nome + " R$ " + contaDestino.Saldo);
-            Console.WriteLine("Saldo atualizado da conta do " + conta.Titular.Nome + " R$ " + conta.Saldo);
-
-
-
-            Console.WriteLine();
-            Console.WriteLine("Total de Contas:" + ContaCorrente.TotalContas);
-            Console.WriteLine();
-            Console.WriteLine("Aperte qualquer tecla para finalizar ...");
             Console.ReadLine();
-
         }
     }
 }
