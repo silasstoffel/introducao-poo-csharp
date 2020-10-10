@@ -26,6 +26,8 @@ namespace ByteBank
             }
         }
 
+        public static int TotalContas { get; private set; }
+
         public ContaCorrente(string agencia, string numero)
         {
             this._saldo = 0;
@@ -33,6 +35,7 @@ namespace ByteBank
             this.Agencia = agencia;
             this.Numero = numero;
             this.Titular = new Cliente();
+            ContaCorrente.TotalContas++;
         }
 
         public bool Sacar(double valor)

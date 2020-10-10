@@ -47,6 +47,9 @@ namespace ByteBank
             Console.WriteLine("Saldo atualizado da conta do " + conta.Titular.Nome + " R$ " + conta.Saldo);
 
 
+
+            Console.WriteLine();
+            Console.WriteLine("Total de Contas:" + ContaCorrente.TotalContas);
             Console.WriteLine();
             Console.WriteLine("Aperte qualquer tecla para finalizar ...");
             Console.ReadLine();
