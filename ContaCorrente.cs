@@ -8,7 +8,7 @@ namespace ByteBank
 {
     class ContaCorrente
     {
-        public string titular;
+        public Cliente titular;
         public string agencia;
         public string numero;
         public double saldo;
@@ -16,6 +16,7 @@ namespace ByteBank
         public ContaCorrente()
         {
             this.saldo = 0;
+            this.titular = new Cliente();
         }
 
         public bool Sacar(double valor)
