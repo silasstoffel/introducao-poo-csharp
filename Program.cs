@@ -12,6 +12,10 @@ namespace ByteBank
         {
             ContaCorrente conta = new ContaCorrente();
             conta.saldo = 100.00;
+            conta.titular = "Silas Stoffel";
+            conta.numero = "37048-2";
+            conta.agencia = "9260-0";
+
             Console.WriteLine("Saldo: " + conta.saldo);
             double valorSaque = 50.00;
             Console.WriteLine("Sacando: R$ " + valorSaque);
@@ -31,6 +35,20 @@ namespace ByteBank
 
             Console.WriteLine("Saldo Atualizado: R$ " + conta.saldo);
 
+
+            // Transferir
+            var contaDestino = new ContaCorrente();
+            contaDestino.titular = "Bruce Wayne (O Batmam)";
+            contaDestino.numero = "0666-6";
+            contaDestino.agencia = "0666";
+
+            // Conta do Silas transfere para o 
+            double valorTransferencia = 120.00; 
+            Console.WriteLine("Transferindo R$ " + valorTransferencia + " para " + contaDestino.titular);
+            Console.WriteLine("Saldo da conta do " + contaDestino.titular + " R$ " + contaDestino.saldo);
+            conta.Transferir(valorTransferencia, contaDestino);
+            Console.WriteLine("Saldo atualizado da conta do " + contaDestino.titular + " R$ " + contaDestino.saldo);
+            Console.WriteLine("Saldo atualizado da conta do " + conta.titular + " R$ " + conta.saldo);
 
 
             Console.WriteLine();

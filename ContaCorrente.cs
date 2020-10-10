@@ -33,6 +33,22 @@ namespace ByteBank
             this.saldo += valor;
         }
 
+        public bool Transferir(double valor, ContaCorrente contaDestino)
+        {
+            if (this.PossuiSaldo(valor))
+            {
+                this.Debitar(valor);
+                contaDestino.Depositar(valor);
+            }
+
+            return false;
+        }
+
+        private void Debitar(double valor)
+        {
+            this.saldo -= valor;
+        }
+
         private bool PossuiSaldo(double valor)
         {
             if (valor <= this.saldo)
