@@ -9,6 +9,7 @@ namespace ByteBank
     class ContaCorrente
     {
         public Cliente Titular { get; set; }
+
         public string Agencia { get; set; }
         public string Numero { get; set; }
 
@@ -25,10 +26,12 @@ namespace ByteBank
             }
         }
 
-        public ContaCorrente()
+        public ContaCorrente(string agencia, string numero)
         {
             this._saldo = 0;
             this.Saldo = 0;
+            this.Agencia = agencia;
+            this.Numero = numero;
             this.Titular = new Cliente();
         }
 

@@ -10,11 +10,9 @@ namespace ByteBank
     {
         static void Main(string[] args)
         {
-            ContaCorrente conta = new ContaCorrente();
+            ContaCorrente conta = new ContaCorrente("9260-0", "37048-2");
             conta.Saldo = 100.00;
             conta.Titular.Nome = "Silas Stoffel";
-            conta.Numero = "37048-2";
-            conta.Agencia = "9260-0";
 
             Console.WriteLine("Saldo: " + conta.Saldo);
             double valorSaque = 50.00;
@@ -37,10 +35,8 @@ namespace ByteBank
 
 
             // Transferir
-            var contaDestino = new ContaCorrente();
+            var contaDestino = new ContaCorrente("0666-6", "0666");
             contaDestino.Titular.Nome = "Bruce Wayne (O Batmam)";
-            contaDestino.Numero = "0666-6";
-            contaDestino.Agencia = "0666";
 
             // Conta do Silas transfere para o Bruce Wayne
             double valorTransferencia = 120.00; 
