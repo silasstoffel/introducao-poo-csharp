@@ -42,7 +42,7 @@ namespace ByteBank
             contaDestino.numero = "0666-6";
             contaDestino.agencia = "0666";
 
-            // Conta do Silas transfere para o 
+            // Conta do Silas transfere para o Bruce Wayne
             double valorTransferencia = 120.00; 
             Console.WriteLine("Transferindo R$ " + valorTransferencia + " para " + contaDestino.titular);
             Console.WriteLine("Saldo da conta do " + contaDestino.titular + " R$ " + contaDestino.saldo);
