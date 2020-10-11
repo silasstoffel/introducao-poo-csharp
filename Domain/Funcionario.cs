@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ByteBank.Dominio
 {
-    public class Funcionario
+    public abstract class Funcionario
     {
         public string Nome { get; set; }
         public string Cpf { get; private set; }
@@ -22,15 +22,8 @@ namespace ByteBank.Dominio
             this.Salario = salario;
         }
 
-        public virtual double GetBonificacao()
-        {
-            double percentual = 10;
-            return this.Salario * (percentual / 100);
-        }
+        public abstract double GetBonificacao();
 
-        public virtual void AumentarSalario(double percentual = 10)
-        {
-            this.Salario = this.Salario + (percentual / 100 * this.Salario);
-        }
+        public abstract void AumentarSalario();
     }
 }
