@@ -47,16 +47,21 @@
     <Compile Include="ContaCorrente.cs" />
     <Compile Include="Domain\Desenvolvedor.cs" />
     <Compile Include="Domain\Auxiliar.cs" />
+    <Compile Include="Domain\FuncionarioAutenticavel.cs" />
     <Compile Include="Domain\GerenteDeConta.cs" />
     <Compile Include="Domain\Designer .cs" />
     <Compile Include="Domain\Diretor.cs" />
+    <Compile Include="ParceiroComercial.cs" />
     <Compile Include="Services\GerenciadorBonificacao.cs" />
     <Compile Include="Domain\Funcionario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sistemas\IAutenticavel.cs" />
+    <Compile Include="Sistemas\SistemaInterno.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
