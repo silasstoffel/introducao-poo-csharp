@@ -18,8 +18,9 @@ namespace ByteBank.Dominio
         {
         }
 
-        public double GetBonificacao(double percentual = 10)
+        public virtual double GetBonificacao()
         {
+            double percentual = 10;
             return this.Salario * (percentual / 100);
         }
     }

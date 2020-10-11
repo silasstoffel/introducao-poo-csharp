@@ -12,14 +12,9 @@ namespace ByteBank.Services
 
         private double _totalBonificacao;
 
-        public void Registrar(ByteBank.Dominio.Funcionario funcionario)
+        public void Registrar(Funcionario funcionario)
         {
             _totalBonificacao += funcionario.GetBonificacao();
-        }
-
-        public void Registrar(Diretor diretor)
-        {
-            _totalBonificacao += diretor.GetBonificacao();
         }
 
         public double GetTotalBonificacao()

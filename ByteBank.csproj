@@ -45,8 +45,9 @@
   <ItemGroup>
     <Compile Include="Cliente.cs" />
     <Compile Include="ContaCorrente.cs" />
-    <Compile Include="Dominio\Bonificacao\GerenciadorBonificacao.cs" />
-    <Compile Include="Dominio\Funcionario\Funcionario.cs" />
+    <Compile Include="Domain\Diretor.cs" />
+    <Compile Include="Services\GerenciadorBonificacao.cs" />
+    <Compile Include="Domain\Funcionario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
