@@ -17,8 +17,15 @@ namespace ByteBank
                 cc.Depositar(100);
 
                 // Tentando sacar valor maior do que se tem de saldo
-                cc.Sacar(cc.Saldo + 100);
+                // cc.Sacar(cc.Saldo + 100);
 
+
+                cc.Depositar(5000);
+
+                ContaCorrente contaDest = new ContaCorrente(9260, 37049);
+
+                cc.Transferir(-150, contaDest);
+                
             }
             catch(ArgumentException e)
             {

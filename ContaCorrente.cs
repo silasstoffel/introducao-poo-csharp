@@ -64,9 +64,14 @@ namespace ByteBank
 
         public void Sacar(double valor)
         {
+            if (valor < 0)
+            {
+                throw new ArgumentException("Valor do saque não pode ser negativo", nameof(valor));
+            }
+
             if (!this.PossuiSaldo(valor))
             {
-                throw new SaldoInsufienteException("Saldo Insuficiente");
+                throw new SaldoInsufienteException(this._saldo, valor);
             }
             this._saldo -= valor;
         }
@@ -77,15 +82,19 @@ namespace ByteBank
                 this._saldo += valor;
         }
 
-        public bool Transferir(double valor, ContaCorrente contaDestino)
+        public void Transferir(double valor, ContaCorrente contaDestino)
         {
+            if (valor < 0)
+            {
+                throw new ArgumentException("Valor da transferência não pode ser negativa", nameof(valor));
+            }
+
             if (this.PossuiSaldo(valor))
             {
                 this.Debitar(valor);
                 contaDestino.Depositar(valor);
             }
 
-            return false;
         }
 
         private void Debitar(double valor)
