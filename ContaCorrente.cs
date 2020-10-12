@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ByteBank.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,14 +62,13 @@ namespace ByteBank
             ContaCorrente.TaxaOperacao = 30 / ContaCorrente.TotalContas;
         }
 
-        public bool Sacar(double valor)
+        public void Sacar(double valor)
         {
             if (!this.PossuiSaldo(valor))
             {
-                return false;
+                throw new SaldoInsufienteException("Saldo Insuficiente");
             }
             this._saldo -= valor;
-            return true;
         }
 
         public void Depositar(double valor)

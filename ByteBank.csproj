@@ -51,6 +51,7 @@
     <Compile Include="Domain\GerenteDeConta.cs" />
     <Compile Include="Domain\Designer .cs" />
     <Compile Include="Domain\Diretor.cs" />
+    <Compile Include="Exceptions\SaldoInsufiente.cs" />
     <Compile Include="ParceiroComercial.cs" />
     <Compile Include="Services\GerenciadorBonificacao.cs" />
     <Compile Include="Domain\Funcionario.cs" />

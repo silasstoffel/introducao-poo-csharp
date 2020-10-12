@@ -1,4 +1,5 @@
 ﻿using ByteBank.Dominio;
+using ByteBank.Exceptions;
 using ByteBank.Services;
 using ByteBank.Sistemas;
 using System;
@@ -10,24 +11,34 @@ namespace ByteBank
     {
         static void Main(string[] args)
         {
-            // CalcularBonificacao(); 
-
-            //UsarSistema();
-
             try
             {
-                ContaCorrente cc = new ContaCorrente(156, -5);
+                ContaCorrente cc = new ContaCorrente(9260, 37048);
+                cc.Depositar(100);
+
+                // Tentando sacar valor maior do que se tem de saldo
+                cc.Sacar(cc.Saldo + 100);
+
             }
             catch(ArgumentException e)
             {
+                Console.WriteLine("ArgumentException");
                 Console.WriteLine(e.Message);
-            } 
+            }
+            catch (SaldoInsufienteException e)
+            {
+                Console.WriteLine("SaldoInsufienteException");
+                Console.WriteLine(e.Message);
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
 
+            Console.WriteLine();
+            Console.WriteLine("Pressione qualquer tecla para finalizar ...");
             Console.ReadLine();
+
         }
 
         public static void UsarSistema()
