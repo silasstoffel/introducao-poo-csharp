@@ -13,90 +13,96 @@ namespace ByteBank
         {
             try
             {
-                ContaCorrente cc = new ContaCorrente(9260, 37048);
-                cc.Depositar(100);
-
-                // Tentando sacar valor maior do que se tem de saldo
-                // cc.Sacar(cc.Saldo + 100);
-
-
-                cc.Depositar(5000);
-
-                ContaCorrente contaDest = new ContaCorrente(9260, 37049);
-
-                cc.Transferir(-150, contaDest);
-                
+                CarregarContas();
             }
-            catch(ArgumentException e)
+            catch (Exception)
             {
-                Console.WriteLine("ArgumentException");
-                Console.WriteLine(e.Message);
-            }
-            catch (SaldoInsufienteException e)
-            {
-                Console.WriteLine("SaldoInsufienteException");
-                Console.WriteLine(e.Message);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("CATCH NO METODO MAIN");
             }
 
-            Console.WriteLine();
-            Console.WriteLine("Pressione qualquer tecla para finalizar ...");
+            Console.WriteLine("Execução finalizada. Tecle enter para sair");
             Console.ReadLine();
-
         }
 
-        public static void UsarSistema()
+        private static void CarregarContas()
         {
-            SistemaInterno sistemaInterno = new SistemaInterno();
+            using (LeitorDeArquivo leitor = new LeitorDeArquivo("teste.txt"))
+            {
+                leitor.LerProximaLinha();
+            }
 
-            Diretor roberta = new Diretor("159.753.398-04");
-            roberta.Nome = "Roberta";
-            roberta.Senha = "123";
 
-            GerenteDeConta camila = new GerenteDeConta("326.985.628-89");
-            camila.Nome = "Camila";
-            camila.Senha = "abc";
 
-            ParceiroComercial parceiro = new ParceiroComercial();
-            parceiro.Senha = "123456";
+            // ---------------------------------------------
 
-            sistemaInterno.Logar(parceiro, "123456");
+            //LeitorDeArquivo leitor = null;
+            //try
+            //{
+            //    leitor = new LeitorDeArquivo("contasl.txt");
 
-            sistemaInterno.Logar(roberta, "123");
-            sistemaInterno.Logar(camila, "abc");
+            //    leitor.LerProximaLinha();
+            //    leitor.LerProximaLinha();
+            //    leitor.LerProximaLinha();
+            //}
+            //finally
+            //{
+            //    Console.WriteLine("Executando o finally");
+            //    if(leitor != null)
+            //    {
+            //        leitor.Fechar();
+            //    }
+            //}
         }
 
-        public static void CalcularBonificacao()
+        private static void TestaInnerException()
         {
-            GerenciadorBonificacao gerenciadorBonificacao = new GerenciadorBonificacao();
+            try
+            {
+                ContaCorrente conta1 = new ContaCorrente(4564, 789684);
+                ContaCorrente conta2 = new ContaCorrente(7891, 456794);
 
-            Funcionario pedro = new Designer("833.222.048-39");
-            pedro.Nome = "Pedro";
+                // conta1.Transferir(10000, conta2);
+                conta1.Sacar(10000);
+            }
+            catch (OperacaoFinanceiraException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
 
-            Funcionario roberta = new Diretor("159.753.398-04");
-            roberta.Nome = "Roberta";
+                // Console.WriteLine("Informações da INNER EXCEPTION (exceção interna):");
 
-            Funcionario igor = new Auxiliar("981.198.778-53");
-            igor.Nome = "Igor";
-
-            Funcionario camila = new GerenteDeConta("326.985.628-89");
-            camila.Nome = "Camila";
-
-            Desenvolvedor guilherme = new Desenvolvedor("456.175.468-20");
-            guilherme.Nome = "Guilherme";
-
-            gerenciadorBonificacao.Registrar(guilherme);
-            gerenciadorBonificacao.Registrar(pedro);
-            gerenciadorBonificacao.Registrar(roberta);
-            gerenciadorBonificacao.Registrar(igor);
-            gerenciadorBonificacao.Registrar(camila);
-
-            Console.WriteLine("Total de bonificações do mês " +
-                gerenciadorBonificacao.GetTotalBonificacao());
+            }
         }
+
+        // Teste com a cadeia de chamada:
+        // Metodo -> TestaDivisao -> Dividir
+        private static void Metodo()
+        {
+            TestaDivisao(0);
+        }
+
+        private static void TestaDivisao(int divisor)
+        {
+            int resultado = Dividir(10, divisor);
+            Console.WriteLine("Resultado da divisão de 10 por " + divisor + " é " + resultado);
+        }
+
+        private static int Dividir(int numero, int divisor)
+        {
+            try
+            {
+                return numero / divisor;
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Exceção com numero=" + numero + " e divisor=" + divisor);
+                throw;
+                Console.WriteLine("Código depois do throw");
+            }
+        }
+
+        // numero = 1
+        // divisor = 2;
 
     }
 }

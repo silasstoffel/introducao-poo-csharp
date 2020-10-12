@@ -7,108 +7,96 @@ using System.Threading.Tasks;
 
 namespace ByteBank
 {
-    class ContaCorrente
+    public class ContaCorrente
     {
-        public static double TaxaOperacao { get; private set; }
+        private static int TaxaOperacao;
+
+        public static int TotalDeContasCriadas { get; private set; }
 
         public Cliente Titular { get; set; }
 
-        public int Agencia { get; }
+        public int ContadorSaquesNaoPermitidos { get; private set; }
+        public int ContadorTransferenciasNaoPermitidas { get; private set; }
 
         public int Numero { get; }
+        public int Agencia { get; }
 
-        private double _saldo;
-
-        private readonly int _numero;
-        private readonly int _agencia;
-
+        private double _saldo = 100;
         public double Saldo
         {
             get
             {
-                return this._saldo;
+                return _saldo;
             }
             set
             {
-                this.Depositar(value);
+                if (value < 0)
+                {
+                    return;
+                }
+
+                _saldo = value;
             }
         }
 
-        public static int TotalContas { get; private set; }
-
-        public ContaCorrente(int numeroAgencia, int numeroConta)
+        public ContaCorrente(int agencia, int numero)
         {
-            this._saldo = 0;
-            this.Saldo = 0;
-            if (numeroAgencia <= 0)
+            if (numero <= 0)
             {
-                throw new ArgumentException(
-                    "Argumento agência deve ser maior que zero.",
-                    nameof(numeroAgencia)
-                );
-            }
-            if (numeroConta <= 0)
-            {
-                throw new ArgumentException(
-                    "Argumento número deve ser maior que zero.",
-                    nameof(numeroConta)
-                );
+                throw new ArgumentException("O argumento agencia deve ser maior que 0.", nameof(agencia));
             }
 
-            this.Agencia = numeroAgencia;
-            this.Numero = numeroConta;
-            this.Titular = new Cliente();
-            ContaCorrente.TotalContas++;
-            ContaCorrente.TaxaOperacao = 30 / ContaCorrente.TotalContas;
+            if (numero <= 0)
+            {
+                throw new ArgumentException("O argumento numero deve ser maior que 0.", nameof(numero));
+            }
+
+            Agencia = agencia;
+            Numero = numero;
+
+            TotalDeContasCriadas++;
+            TaxaOperacao = 30 / TotalDeContasCriadas;
         }
 
         public void Sacar(double valor)
         {
             if (valor < 0)
             {
-                throw new ArgumentException("Valor do saque não pode ser negativo", nameof(valor));
+                throw new ArgumentException("Valor inválido para o saque.", nameof(valor));
             }
 
-            if (!this.PossuiSaldo(valor))
+            if (_saldo < valor)
             {
-                throw new SaldoInsufienteException(this._saldo, valor);
+                ContadorSaquesNaoPermitidos++;
+                throw new SaldoInsuficienteException(Saldo, valor);
             }
-            this._saldo -= valor;
+
+            _saldo -= valor;
         }
 
         public void Depositar(double valor)
         {
-            if (valor > 0)
-                this._saldo += valor;
+            _saldo += valor;
         }
 
         public void Transferir(double valor, ContaCorrente contaDestino)
         {
             if (valor < 0)
             {
-                throw new ArgumentException("Valor da transferência não pode ser negativa", nameof(valor));
+                throw new ArgumentException("Valor inválido para a transferência.", nameof(valor));
             }
 
-            if (this.PossuiSaldo(valor))
+            try
             {
-                this.Debitar(valor);
-                contaDestino.Depositar(valor);
+                Sacar(valor);
             }
-
-        }
-
-        private void Debitar(double valor)
-        {
-            this.Saldo -= valor;
-        }
-
-        private bool PossuiSaldo(double valor)
-        {
-            if (valor <= this.Saldo)
+            catch (SaldoInsuficienteException ex)
             {
-                return true;
+                ContadorTransferenciasNaoPermitidas++;
+                throw new OperacaoFinanceiraException("Operação não realizada.", ex);
             }
-            return false;
+
+            contaDestino.Depositar(valor);
         }
     }
 }
