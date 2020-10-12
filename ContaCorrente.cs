@@ -8,12 +8,19 @@ namespace ByteBank
 {
     class ContaCorrente
     {
+        public static double TaxaOperacao { get; private set; }
+
         public Cliente Titular { get; set; }
 
-        public string Agencia { get; set; }
-        public string Numero { get; set; }
+        public int Agencia { get; }
+
+        public int Numero { get; }
 
         private double _saldo;
+
+        private readonly int _numero;
+        private readonly int _agencia;
+
         public double Saldo
         {
             get
@@ -28,14 +35,30 @@ namespace ByteBank
 
         public static int TotalContas { get; private set; }
 
-        public ContaCorrente(string agencia, string numero)
+        public ContaCorrente(int numeroAgencia, int numeroConta)
         {
             this._saldo = 0;
             this.Saldo = 0;
-            this.Agencia = agencia;
-            this.Numero = numero;
+            if (numeroAgencia <= 0)
+            {
+                throw new ArgumentException(
+                    "Argumento agência deve ser maior que zero.",
+                    nameof(numeroAgencia)
+                );
+            }
+            if (numeroConta <= 0)
+            {
+                throw new ArgumentException(
+                    "Argumento número deve ser maior que zero.",
+                    nameof(numeroConta)
+                );
+            }
+
+            this.Agencia = numeroAgencia;
+            this.Numero = numeroConta;
             this.Titular = new Cliente();
             ContaCorrente.TotalContas++;
+            ContaCorrente.TaxaOperacao = 30 / ContaCorrente.TotalContas;
         }
 
         public bool Sacar(double valor)

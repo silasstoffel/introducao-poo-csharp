@@ -12,7 +12,20 @@ namespace ByteBank
         {
             // CalcularBonificacao(); 
 
-            UsarSistema();
+            //UsarSistema();
+
+            try
+            {
+                ContaCorrente cc = new ContaCorrente(156, -5);
+            }
+            catch(ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            } 
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
             Console.ReadLine();
         }
